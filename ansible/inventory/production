@@ -1,0 +1,15 @@
+[web_servers]
+web01.example.com
+web02.example.com
+
+[database_servers]
+db01.example.com
+db02.example.com
+
+[monitoring_servers]
+monitor01.example.com
+
+[all:vars]
+ansible_user=ansible
+ansible_become=yes
+ansible_become_method=sudo

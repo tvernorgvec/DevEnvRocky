@@ -1,0 +1,25 @@
+---
+# Common Variables
+domain_name: "isp-pybox.gvec.net"
+admin_email: "tvernor@gvec.org"
+
+# Docker Configuration
+docker_version: "24.0"
+docker_compose_version: "2.24.0"
+
+# Security Settings
+firewall_allowed_ports:
+  - "80/tcp"
+  - "443/tcp"
+  - "22/tcp"
+  - "3000/tcp"
+  - "9090/tcp"
+  - "9093/tcp"
+  - "8443/tcp"
+  - "6379/tcp"
+  - "5601/tcp"
+  - "5000/tcp"
+
+# Monitoring Configuration
+prometheus_retention_days: 15
+grafana_admin_password: "{{ vault_grafana_admin_password }}"

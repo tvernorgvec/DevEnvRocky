@@ -1,0 +1,27 @@
+---
+- name: Update system packages
+  dnf:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: Install common packages
+  dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - vim
+    - wget
+    - curl
+    - net-tools
+    - htop
+    - jq
+    - tmux
+    - tree
+
+- name: Configure firewall
+  include_tasks: firewall.yml
+
+- name: Configure SELinux
+  include_tasks: selinux.yml

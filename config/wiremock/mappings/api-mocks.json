@@ -1,0 +1,61 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/users"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": [
+          {
+            "id": 1,
+            "name": "Test User",
+            "email": "test@example.com"
+          }
+        ]
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/api/users",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.name"
+          }
+        ]
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "id": "{{randomValue length=8 type='ALPHANUMERIC'}}",
+          "name": "{{jsonPath request.body '$.name'}}",
+          "created": "{{now format='yyyy-MM-dd HH:mm:ss'}}"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/health"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "status": "healthy",
+          "timestamp": "{{now}}"
+        }
+      }
+    }
+  ]
+}

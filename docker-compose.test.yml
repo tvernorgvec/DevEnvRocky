@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  wiremock:
+    image: wiremock/wiremock:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config/wiremock:/home/wiremock
+    environment:
+      - WIREMOCK_OPTIONS=--global-response-templating,--local-response-templating
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:8080/__admin/mappings"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - testing
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  testing:
+    driver: bridge
